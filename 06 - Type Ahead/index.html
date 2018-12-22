@@ -37,14 +37,19 @@ function initCities( responseData ) {
 
 function updateCityList( ev ) {
   const searchString = ev.target.value.toLowerCase();
-  console.log('Searching for ' + searchString);
 
-  const filteredCities = cities.filter( city => city.city.toLowerCase().startsWith(searchString) || city.state.toLowerCase().startsWith(searchString) );
+  const filteredCities = cities.filter( 
+    city =>
+      city.city.toLowerCase().includes(searchString) || 
+      city.state.toLowerCase().includes(searchString) );
 
-  console.log(filteredCities);
-
-  const cityList = filteredCities.map( city => `<li>${city.city}</li>` );
-
+  
+  const cityList = filteredCities.map( function ( city ) {
+    var cityString = `${city.city}, ${city.state}`;
+    cityString = cityString.replace( new RegExp(`(${searchString})`, 'gi'), '<span class="hl">$1</span>' );    
+    return `<li><span class="name">${cityString}</span><span class="population">${city.population}</span></li>`;
+  });
+  
   suggestions.innerHTML = cityList.join('');
 
 }
