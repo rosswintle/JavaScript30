@@ -44,14 +44,16 @@ function updateCityList( ev ) {
       city.state.toLowerCase().includes(searchString) );
 
   
-  const cityList = filteredCities.map( function ( city ) {
-    var cityString = `${city.city}, ${city.state}`;
-    cityString = cityString.replace( new RegExp(`(${searchString})`, 'gi'), '<span class="hl">$1</span>' );    
-    return `<li><span class="name">${cityString}</span><span class="population">${city.population}</span></li>`;
-  });
+  const cityList = filteredCities.map( city => formatCity( city, searchString ) );
   
   suggestions.innerHTML = cityList.join('');
 
+}
+
+function formatCity( city, searchString ) {
+  var cityString = `${city.city}, ${city.state}`;
+  cityString = cityString.replace( new RegExp(`(${searchString})`, 'gi'), '<span class="hl">$1</span>' );    
+  return `<li><span class="name">${cityString}</span><span class="population">${city.population}</span></li>`;
 }
 
 init();
