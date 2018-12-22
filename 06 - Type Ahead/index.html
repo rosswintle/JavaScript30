@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+var cities = [];
+
+const input = document.querySelector('input');
+const suggestions = document.querySelector('.suggestions');
+
+function init() {
+  fetch( endpoint ).then( handleCitiesResponse );
+}
+
+function handleCitiesResponse( response ) {
+  response.json().then( function( data ) { initCities(data) });//initCities );
+};
+
+function initCities( responseData ) {
+  cities = responseData;
+  input.addEventListener( 'keyup', updateCityList );
+}
+
+function updateCityList( ev ) {
+  const searchString = ev.target.value.toLowerCase();
+  console.log('Searching for ' + searchString);
+
+  const filteredCities = cities.filter( city => city.city.toLowerCase().startsWith(searchString) || city.state.toLowerCase().startsWith(searchString) );
+
+  console.log(filteredCities);
+
+  const cityList = filteredCities.map( city => `<li>${city.city}</li>` );
+
+  suggestions.innerHTML = cityList.join('');
+
+}
+
+init();
+
+</script>
+</body>
+</html>
