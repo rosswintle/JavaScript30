@@ -1,3 +1,4 @@
+"use strict";
 // ## Array Cardio Day 2
 var Person = /** @class */ (function () {
     function Person() {
@@ -28,8 +29,8 @@ var comments = [
     new CommentItem('Ramen is my fav food ever', 123523),
     new CommentItem('Nice Nice Nice!', 542328)
 ];
+var now = (new Date()).getFullYear();
 function nineteenPlus(person) {
-    var now = new Date().getFullYear();
     return (now - person.year) > 19;
 }
 // function 
@@ -60,3 +61,4 @@ console.log(commentText);
 var commentId = comments.findIndex(function (c) { return c.hasId(823423); });
 var removed = comments.splice(commentId, 1);
 console.log(comments);
+//# sourceMappingURL=main.js.map

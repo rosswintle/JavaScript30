@@ -32,8 +32,9 @@
       new CommentItem( 'Nice Nice Nice!', 542328 )
     ];
 
+    const now:number = (new Date()).getFullYear();
+
     function nineteenPlus( person: Person ) : boolean {
-      const now:number = new Date().getFullYear();
       return ( now - person.year ) > 19;
     }
 
